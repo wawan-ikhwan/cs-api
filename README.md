@@ -7,6 +7,6 @@ Latar Belakang: Informasi yang beredar biasanya tidak beraturan, dimana informas
   
   
  Resource Backend:
-    Database: PostgreSQL
+    Database: PostgreSQL / MySQL
     Bahasa Server: Nodejs
     Bahasa Frontend: Javascript
