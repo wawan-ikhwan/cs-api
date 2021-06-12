@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "eslint": "eslint --init"
+    "eslint": "eslint --init",
+    "migrate-dev": "node-pg-migrate --no-reject-unauthorized",
+    "migrate": "node ./dev/migrate.js"
   },
   "repository": {
     "type": "git",
