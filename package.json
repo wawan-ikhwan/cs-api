@@ -4,7 +4,7 @@
   "description": "Membuat Sistem Informasi InUnsri (Informasi Unsri)\r Deskripsi: Sistem Informasi yang membuat Mahasiswa Unsri mengetahui informasi terupdate.\r Latar Belakang: Informasi yang beredar biasanya tidak beraturan, dimana informasi event, lomba, masih tersebar pada platform atau media yang berbeda.\r   Sebab itulah InUnsri dibuat untuk membuat semua informasi menyatu dan beraturan.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "eslint": "eslint --init",
     "migrate-dev": "node-pg-migrate --no-reject-unauthorized",
     "migrate": "node ./dev/migrate.js"
@@ -31,6 +31,7 @@
   "devDependencies": {
     "eslint": "^7.28.0",
     "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-plugin-import": "^2.23.4"
+    "eslint-plugin-import": "^2.23.4",
+    "jest": "^27.0.4"
   }
 }
