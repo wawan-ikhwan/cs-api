@@ -16,4 +16,9 @@ Resource Backend:
 Cara memulai :
 ```
 npm install
+```  
+
+Menjalankan test : 
+```
+npm run test
 ```
