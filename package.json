@@ -2,8 +2,9 @@
   "name": "cs-api",
   "version": "1.0.0",
   "description": "Membuat Sistem Informasi InUnsri (Informasi Unsri)\r Deskripsi: Sistem Informasi yang membuat Mahasiswa Unsri mengetahui informasi terupdate.\r Latar Belakang: Informasi yang beredar biasanya tidak beraturan, dimana informasi event, lomba, masih tersebar pada platform atau media yang berbeda.\r   Sebab itulah InUnsri dibuat untuk membuat semua informasi menyatu dan beraturan.",
-  "main": "index.js",
+  "main": "./src/server.js",
   "scripts": {
+    "start": "node ./src/server.js",
     "test": "jest",
     "test:coverage" : "jest --coverage",
     "eslint": "eslint --init",
