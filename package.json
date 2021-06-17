@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node ./src/server.js",
     "test": "jest",
-    "test:coverage" : "jest --coverage",
+    "test:coverage": "jest --coverage",
     "eslint": "eslint --init",
     "migrate-dev": "node-pg-migrate --no-reject-unauthorized",
     "migrate": "node ./dev/migrate.js"
