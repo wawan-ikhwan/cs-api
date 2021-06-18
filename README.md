@@ -12,3 +12,13 @@ Resource Backend:
 -   Database: PostgreSQL
 -   Bahasa Server: Nodejs
 -   Bahasa Frontend: Javascript
+
+Cara memulai :
+```
+npm install
+```  
+
+Menjalankan test : 
+```
+npm run test
+```
