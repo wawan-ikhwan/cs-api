@@ -6,6 +6,9 @@ const hapi = require('@hapi/hapi');
 const eventPlugin = require('./api/event');
 const eventValidator = require('./validator/event');
 
+// auth
+const authPlugin = require('./api/auth');
+
 (async () => {
   const server = hapi.server({
     host: process.env.HOST,
@@ -23,6 +26,12 @@ const eventValidator = require('./validator/event');
       options: {
         service: null,
         validator: eventValidator,
+      },
+    },
+    {
+      plugin: authPlugin,
+      options: {
+        service: null,
       },
     },
   ]);
