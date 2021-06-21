@@ -4,12 +4,15 @@ const hapi = require('@hapi/hapi');
 
 // event
 const eventPlugin = require('./api/event');
+const EventService = require('./services/postgres/EventService');
 const eventValidator = require('./validator/event');
 
 // auth
 const authPlugin = require('./api/auth');
 
 (async () => {
+  const eventService = new EventService();
+
   const server = hapi.server({
     host: process.env.HOST,
     port: process.env.PORT,
@@ -24,7 +27,7 @@ const authPlugin = require('./api/auth');
     {
       plugin: eventPlugin,
       options: {
-        service: null,
+        service: eventService,
         validator: eventValidator,
       },
     },
