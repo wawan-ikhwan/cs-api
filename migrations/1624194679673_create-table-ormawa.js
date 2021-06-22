@@ -17,5 +17,5 @@ exports.up = (pgm) => {
 };
 
 exports.down = (pgm) => {
-  pgm.dropTable('events');
+  pgm.dropTable('ormawa');
 };
