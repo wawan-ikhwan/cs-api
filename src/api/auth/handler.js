@@ -1,8 +1,9 @@
 const { ClientError } = require('../../exceptions/ClientError');
 
 class AuthHandler {
-  constructor(service) {
+  constructor(service, validator) {
     this.service = service;
+    this.validator = validator;
 
     this.postAuth = this.postAuth.bind(this);
     this.putAuth = this.putAuth.bind(this);
@@ -11,6 +12,7 @@ class AuthHandler {
 
   async postAuth(request, h) {
     try {
+      this.validator.validateLogin(request.payload);
       await this.service;
 
       return {
@@ -34,6 +36,7 @@ class AuthHandler {
 
   async putAuth(request, h) {
     try {
+      this.validator.validateUpdateToken(request.payload);
       await this.service;
 
       return {
@@ -57,6 +60,7 @@ class AuthHandler {
 
   async deleteAuth(request, h) {
     try {
+      this.validator.validateLogout(request.payload);
       await this.service;
 
       return {

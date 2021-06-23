@@ -13,8 +13,9 @@ const eventValidator = require('./validator/event');
 
 // auth
 const authPlugin = require('./api/auth');
+const authValidator = require('./validator/auth');
 
-(async () => {
+module.exports = (async () => {
   const eventService = new EventService();
 
   const server = hapi.server({
@@ -46,10 +47,12 @@ const authPlugin = require('./api/auth');
       plugin: authPlugin,
       options: {
         service: null,
+        validator: authValidator,
       },
     },
   ]);
 
   await server.start();
   console.log(`Server sudah jalan ${server.info.uri}`);
+  return server;
 })();

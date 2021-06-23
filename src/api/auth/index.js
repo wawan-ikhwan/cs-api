@@ -3,9 +3,9 @@ const routes = require('./routes');
 
 module.exports = {
   name: 'auth',
-  version: '1.0',
-  register: (server, { service }) => {
-    const authHandler = new AuthHandler(service);
+  version: '2.0',
+  register: (server, { service, validator }) => {
+    const authHandler = new AuthHandler(service, validator);
     server.route(routes(authHandler));
   },
 };
