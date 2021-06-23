@@ -2,6 +2,10 @@ require('dotenv').config();
 
 const hapi = require('@hapi/hapi');
 
+// ormawa
+const ormawaPlugin = require('./api/ormawa');
+const ormawaValidator = require('./validator/ormawa');
+
 // event
 const eventPlugin = require('./api/event');
 const EventService = require('./services/postgres/EventService');
@@ -24,6 +28,13 @@ const authPlugin = require('./api/auth');
   });
 
   await server.register([
+    {
+      plugin: ormawaPlugin,
+      options: {
+        service: null,
+        validator: ormawaValidator,
+      },
+    },
     {
       plugin: eventPlugin,
       options: {
