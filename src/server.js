@@ -4,6 +4,7 @@ const hapi = require('@hapi/hapi');
 
 // ormawa
 const ormawaPlugin = require('./api/ormawa');
+const OrmawaService = require('./services/postgres/OrmawaService');
 const ormawaValidator = require('./validator/ormawa');
 
 // event
@@ -17,6 +18,7 @@ const authValidator = require('./validator/auth');
 
 module.exports = (async () => {
   const eventService = new EventService();
+  const ormawaService = new OrmawaService();
 
   const server = hapi.server({
     host: process.env.HOST,
@@ -32,7 +34,7 @@ module.exports = (async () => {
     {
       plugin: ormawaPlugin,
       options: {
-        service: null,
+        service: ormawaService,
         validator: ormawaValidator,
       },
     },
