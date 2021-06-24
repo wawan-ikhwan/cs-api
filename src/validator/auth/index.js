@@ -2,7 +2,7 @@ const Joi = require('joi');
 const { BadRequestException } = require('../../exceptions/ClientError');
 
 const loginSchema = Joi.object({
-  email: Joi.string().email({ tlds: { allow: true } }).required(),
+  email: Joi.string().email().required(),
   password: Joi.string().required(),
 });
 

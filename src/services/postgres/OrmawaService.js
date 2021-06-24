@@ -2,7 +2,7 @@ const { Pool } = require('pg');
 const { nanoid } = require('nanoid');
 const bcrypt = require('bcrypt');
 const { InternalServerErrorException } = require('../../exceptions/ServerError');
-const { NotFoundException, BadRequestException } = require('../../exceptions/ClientError');
+const { NotFoundException, BadRequestException, UnauthorizedException } = require('../../exceptions/ClientError');
 
 class OrmawaService {
   constructor() {
@@ -32,6 +32,26 @@ class OrmawaService {
     }
 
     return result.rows[0].id;
+  }
+
+  async verifyOrmawa(email, password) {
+    const result = await this.pool.query({
+      text: 'SELECT id, password FROM ormawa WHERE email = $1',
+      values: [email],
+    });
+
+    if (!result.rowCount) {
+      throw new UnauthorizedException('Kredensial Salah!');
+    }
+
+    const { id, password: hashedpassword } = result.rows[0];
+    const match = await bcrypt.compare(password, hashedpassword);
+
+    if (!match) {
+      throw new UnauthorizedException('Kredensial Salah!');
+    }
+
+    return id;
   }
 
   async verifyEmail(email) {

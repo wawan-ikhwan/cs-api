@@ -1,6 +1,9 @@
 require('dotenv').config();
 
 const hapi = require('@hapi/hapi');
+const Jwt = require('@hapi/jwt');
+
+const tokenManager = require('./tokenmanager');
 
 // ormawa
 const ormawaPlugin = require('./api/ormawa');
@@ -15,10 +18,12 @@ const eventValidator = require('./validator/event');
 // auth
 const authPlugin = require('./api/auth');
 const authValidator = require('./validator/auth');
+const AuthService = require('./services/postgres/AuthService');
 
 module.exports = (async () => {
   const eventService = new EventService();
   const ormawaService = new OrmawaService();
+  const authService = new AuthService();
 
   const server = hapi.server({
     host: process.env.HOST,
@@ -28,6 +33,22 @@ module.exports = (async () => {
         origin: ['*'],
       },
     },
+  });
+
+  await server.register(Jwt);
+
+  server.auth.strategy('ormawaAuth', 'jwt', {
+    keys: process.env.ACCESS_TOKEN_KEY,
+    verify: {
+      aud: false,
+      iss: false,
+      sub: false,
+      maxAgeSec: 60,
+    },
+    validate: (artifacts) => ({
+      isValid: true,
+      credentials: { credentialId: artifacts.decoded.payload.id },
+    }),
   });
 
   await server.register([
@@ -48,7 +69,9 @@ module.exports = (async () => {
     {
       plugin: authPlugin,
       options: {
-        service: null,
+        authService,
+        ormawaService,
+        tokenManager,
         validator: authValidator,
       },
     },
