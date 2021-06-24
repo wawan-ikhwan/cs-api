@@ -1,24 +1,17 @@
 const request = require('supertest');
 const server = require('../../../src/server');
 
-describe('[Create Ormawa] Test Endpoint /ormawa', () => {
-  const requestBody = {
-    email: '{testmail}',
-    password: '{testpassword}',
-    nama: '{testname}',
-    urlFotoUser: '{testuserphoto}',
-  };
+describe('[Read All Events] Test Endpoint /events', () => {
   let response;
   beforeEach(async () => {
     response = await server.then((s) => request(s.listener)
-      .post('/ormawa')
-      .send(requestBody)
+      .get('/events')
       .accept('application/json')
       .expect((res) => res.body.data));
   });
 
-  it('should be 201 http code', () => {
-    expect(response.statusCode).toStrictEqual(201);
+  it('should be 200 http code', () => {
+    expect(response.statusCode).toStrictEqual(200);
   });
 
   it('should return json body', () => {
@@ -28,21 +21,30 @@ describe('[Create Ormawa] Test Endpoint /ormawa', () => {
   it('json body should be same with the expected values', async () => {
     expect(response.body)
       .toHaveProperty('status', 'success')
-      .toHaveProperty('message', 'Ormawa ditambahkan')
       .toHaveProperty('data')
-      .toHaveProperty('data.ormawaId')
+      .toHaveProperty('data.events')
       .toMatchObject({
-        status: expect.any(String),
-        message: expect.any(String),
+        status: 'success',
         data: {
-          ormawaId: expect.any(String),
+          events: expect.any(Array),
         },
       });
   });
 
+  it('json body.data.events should be array of objects', () => {
+    expect(response.body.data.events)
+      .arrayContaining(expect.any(Object))
+      .arrayContaining([
+        expect.toMatchObject({
+          ormawaId: expect.any(String),
+          judul: expect.any(String),
+          urlFotoPamflet: expect.any(String),
+          waktuAcara: expect.any(Date),
+        }),
+      ]);
+  });
+
   afterEach(async () => {
-    // Saving ormawaId to env vars
-    process.env.ormawaId = response.body.ormawaId;
     await server.then((e) => e.stop());
   });
 });
