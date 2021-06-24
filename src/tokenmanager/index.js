@@ -13,7 +13,7 @@ module.exports = {
       Jwt.token.verifySignature(artifacts, process.env.REFRESH_TOKEN_KEY);
       return artifacts.decoded.payload;
     } catch (error) {
-      throw new UnauthorizedTokenException(refreshToken, 'Refresh token tidak valid / expire');
+      throw new UnauthorizedTokenException(refreshToken, 'refresh token tidak valid / expire');
     }
   },
 };
