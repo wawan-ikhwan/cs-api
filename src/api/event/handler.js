@@ -98,8 +98,10 @@ class EventHandler {
   async putEventById(request, h) {
     try {
       const { id } = request.params;
-
       this.validator.validateEvent(request.payload);
+
+      const { credentialId } = request.auth.credentials;
+      await this.service.verifyEventOwner(credentialId, id);
 
       await this.service.updateEventById(id, request.payload);
 
@@ -125,6 +127,9 @@ class EventHandler {
   async deleteEventById(request, h) {
     try {
       const { id } = request.params;
+
+      const { credentialId } = request.auth.credentials;
+      await this.service.verifyEventOwner(credentialId, id);
 
       await this.service.deleteEventById(id);
 

@@ -3,6 +3,7 @@ const { nanoid } = require('nanoid');
 const bcrypt = require('bcrypt');
 const { InternalServerErrorException } = require('../../exceptions/ServerError');
 const { NotFoundException, BadRequestException, UnauthorizedException } = require('../../exceptions/ClientError');
+const { ormawaModel } = require('../../utils/DBtoModel');
 
 class OrmawaService {
   constructor() {
@@ -28,7 +29,7 @@ class OrmawaService {
     });
 
     if (!result.rows[0].id) {
-      throw new InternalServerErrorException();
+      throw new InternalServerErrorException('ormawa tidak dapat ditambah');
     }
 
     return result.rows[0].id;
@@ -41,14 +42,14 @@ class OrmawaService {
     });
 
     if (!result.rowCount) {
-      throw new UnauthorizedException('Kredensial Salah!');
+      throw new UnauthorizedException('kredensial Salah!');
     }
 
     const { id, password: hashedpassword } = result.rows[0];
     const match = await bcrypt.compare(password, hashedpassword);
 
     if (!match) {
-      throw new UnauthorizedException('Kredensial Salah!');
+      throw new UnauthorizedException('kredensial Salah!');
     }
 
     return id;
@@ -66,30 +67,22 @@ class OrmawaService {
   }
 
   async getOrmawa() {
-    const result = await this.pool.query('SELECT id, email, nama, url_foto_user AS foto FROM ormawa');
+    const result = await this.pool.query('SELECT id, email, nama, url_foto_user FROM ormawa');
 
-    return result.rows.map(({
-      id, email, nama, foto,
-    }) => ({
-      id, email, nama, urlFotoOrmawa: foto,
-    }));
+    return result.rows.map(ormawaModel);
   }
 
   async getOrmawaById(idOrmawa) {
     const result = await this.pool.query({
-      text: 'SELECT id, email, nama, url_foto_user AS foto FROM ormawa WHERE id = $1',
+      text: 'SELECT id, email, nama, url_foto_user FROM ormawa WHERE id = $1',
       values: [idOrmawa],
     });
 
     if (!result.rowCount) {
-      throw new NotFoundException();
+      throw new NotFoundException('ormawa tidak ditemukan');
     }
 
-    return result.rows.map(({
-      id, email, nama, foto,
-    }) => ({
-      id, email, nama, urlFotoOrmawa: foto,
-    }))[0];
+    return result.rows.map(ormawaModel)[0];
   }
 }
 
