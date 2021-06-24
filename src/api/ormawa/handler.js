@@ -14,13 +14,13 @@ class OrmawaHandler {
     try {
       this.validator.validateOrmawa(request.payload);
 
-      // const ormawaId = await this.service.insertOrmawa(request.payload); # isi service!!!!
+      const ormawaId = await this.service.insertOrmawa(request.payload);
 
       return h.response({
         status: 'success',
         message: 'Ormawa berhasil terdaftar!',
         data: {
-          ormawaId: '235151', // edit soon
+          ormawaId,
         },
       }).code(201);
     } catch (error) {
@@ -40,12 +40,12 @@ class OrmawaHandler {
 
   async getAllOrmawa(request, h) {
     try {
-      // const ormawa = await this.service.getOrmawa();
+      const ormawa = await this.service.getOrmawa();
 
       return {
         status: 'success',
         data: {
-          ormawa: ['senifasilkom', 'bem'], // edit soon
+          ormawa, // edit soon
         },
       };
     } catch (error) {
@@ -66,14 +66,13 @@ class OrmawaHandler {
   async getOrmawaById(request, h) {
     try {
       const { id } = request.params;
-      console.log(id);
 
-      // const ormawa = await this.service.getOrmawaById(id);
+      const ormawa = await this.service.getOrmawaById(id);
 
       return {
         status: 'success',
         data: {
-          ormawa: 'bem', // edit soon
+          ormawa, // edit soon
         },
       };
     } catch (error) {

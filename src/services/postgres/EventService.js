@@ -13,7 +13,7 @@ class EventService {
     });
   }
 
-  async insertEvent({
+  async insertEvent(idOrmawa, {
     judul, deskripsi, urlFotoPamflet, urlPendaftaran, waktuAcara,
   }) {
     const id = `event-${nanoid(16)}`;
@@ -22,7 +22,15 @@ class EventService {
 
     const result = await this.pool.query({
       text: 'INSERT INTO events VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id',
-      values: [id, 'TEST-ORMAWA-ID', judul, deskripsi, urlFotoPamflet, urlPendaftaran, waktuAcara, waktuDibuat],
+      values: [
+        id,
+        idOrmawa,
+        judul,
+        deskripsi,
+        urlFotoPamflet,
+        urlPendaftaran,
+        waktuAcara,
+        waktuDibuat],
     });
 
     if (!result.rows[0].id) {
