@@ -4,9 +4,9 @@ const { BadRequestException } = require('../../exceptions/ClientError');
 const eventSchema = Joi.object({
   judul: Joi.string().required(),
   deskripsi: Joi.string().required(),
-  url_foto_pamflet: Joi.string().required(),
-  url_pendaftaran: Joi.string().required(),
-  waktu_acara: Joi.date().required(),
+  urlFotoPamflet: Joi.string().required(),
+  urlPendaftaran: Joi.string().required(),
+  waktuAcara: Joi.date().iso().required(),
 });
 
 module.exports = {

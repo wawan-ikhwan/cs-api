@@ -1,0 +1,1105 @@
+{
+	"info": {
+		"_postman_id": "1bc247d8-0f66-44f7-9674-e652fcb8572e",
+		"name": "DSC",
+		"description": "- Base URL  \n  - Host dan port terkait ketika running di local  \n  - ex: localhost:5000  \n  - Ganti value vairabel base_url di Environments `DSC CS-API`",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Ormawa",
+			"item": [
+				{
+					"name": "Create Ormawa",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test('response should have property data', function () {",
+									"    const responseJson = pm.response.json();",
+									"",
+									"    pm.expect(responseJson).to.haveOwnProperty('data');",
+									"    pm.expect(responseJson).to.haveOwnProperty('ormawaId');",
+									"    const {data: {ormawaId} } = responseJson;",
+									"    ",
+									"    pm.environment.set('ormawaId', ormawaId);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"testemail@gmail.com\",\n    \"password\": \"{testpassword}\",\n    \"nama\": \"{testname}\",\n    \"urlFotoOrmawa\": \"{testuserphoto}\"    \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/ormawa",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"ormawa"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create Ormawa",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"testemail@gmail.com\",\n    \"password\": \"{testpassword}\",\n    \"nama\": \"{testname}\",\n    \"urlFotoOrmawa\": \"{testuserphoto}\"    \n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/ormawa",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"ormawa"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "vary",
+									"value": "origin"
+								},
+								{
+									"key": "access-control-expose-headers",
+									"value": "WWW-Authenticate,Server-Authorization"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-cache"
+								},
+								{
+									"key": "content-length",
+									"value": "90"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 24 Jun 2021 08:37:48 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"message\": \"Ormawa berhasil terdaftar!\",\n    \"data\": {\n        \"ormawaId\": \"NzzcT_Tx\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get All Ormawa",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/ormawa",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"ormawa"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get All Ormawa",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/ormawa",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"ormawa"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "vary",
+									"value": "origin"
+								},
+								{
+									"key": "access-control-expose-headers",
+									"value": "WWW-Authenticate,Server-Authorization"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-cache"
+								},
+								{
+									"key": "content-length",
+									"value": "358"
+								},
+								{
+									"key": "accept-ranges",
+									"value": "bytes"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 24 Jun 2021 08:35:08 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"ormawa\": [\n            {\n                \"id\": \"7zzhA2z1\",\n                \"email\": \"wawan@dsc.ac.id\",\n                \"nama\": \"ikhwan\",\n                \"urlFotoOrmawa\": \"https://www.goog.com/23132\"\n            },\n            {\n                \"id\": \"8KLlcuvm\",\n                \"email\": \"bayu@unsri.ac.id\",\n                \"nama\": \"nabiel\",\n                \"urlFotoOrmawa\": \"https://www.goog.com/453553\"\n            },\n            {\n                \"id\": \"M5wYoUaG\",\n                \"email\": \"alvin@unsri.ac.id\",\n                \"nama\": \"bayu\",\n                \"urlFotoOrmawa\": \"https://www.goog.com/asdads\"\n            }\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Ormawa by Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/ormawa/{{ormawaId}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"ormawa",
+								"{{ormawaId}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Ormawa by Id",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/ormawa/7zzhA2z1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"ormawa",
+										"7zzhA2z1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "vary",
+									"value": "origin"
+								},
+								{
+									"key": "access-control-expose-headers",
+									"value": "WWW-Authenticate,Server-Authorization"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-cache"
+								},
+								{
+									"key": "content-length",
+									"value": "143"
+								},
+								{
+									"key": "accept-ranges",
+									"value": "bytes"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 24 Jun 2021 08:35:38 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"ormawa\": {\n            \"id\": \"7zzhA2z1\",\n            \"email\": \"wawan@dsc.ac.id\",\n            \"nama\": \"ikhwan\",\n            \"urlFotoOrmawa\": \"https://www.goog.com/23132\"\n        }\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('response should have property data', function () {",
+									"    const responseJson = pm.response.json();",
+									"",
+									"    pm.expect(responseJson).to.haveOwnProperty('data');",
+									"    pm.expect(responseJson.data).to.haveOwnProperty('accessToken');",
+									"    pm.expect(responseJson.data).to.haveOwnProperty('refreshToken');",
+									"    const {data: {accessToken, refreshToken} } = responseJson;",
+									"    ",
+									"    pm.environment.set('access_token', accessToken);",
+									"    pm.environment.set('refresh_token', refreshToken);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"testemail@gmail.com\",\n    \"password\": \"{testpassword}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"testemail@gmail.com\",\n    \"password\": \"{testpassword}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/auth",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"auth"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "vary",
+									"value": "origin"
+								},
+								{
+									"key": "access-control-expose-headers",
+									"value": "WWW-Authenticate,Server-Authorization"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-cache"
+								},
+								{
+									"key": "content-length",
+									"value": "365"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 24 Jun 2021 08:55:22 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"message\": \"post auth berhasil\",\n    \"data\": {\n        \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcm1hd2FJZCI6Ik56emNUX1R4IiwiaWF0IjoxNjI0NTI0OTE5fQ.Wbvd0PWQXJUXjkqcBYtO-vwgYZmXpSX0V_LgL44cecc\",\n        \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcm1hd2FJZCI6Ik56emNUX1R4IiwiaWF0IjoxNjI0NTI0OTE5fQ.TQCyIwcW5k7_0Z3u4xt_7rruP5seGsI8Mco5eKpLHCc\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Issuing New Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('response should have property data', function () {",
+									"    const responseJson = pm.response.json();",
+									"",
+									"    pm.expect(responseJson).to.haveOwnProperty('data');",
+									"    pm.expect(responseJson.data).to.haveOwnProperty('accessToken');",
+									"    pm.expect(responseJson.data).to.haveOwnProperty('refreshToken');",
+									"    const {data: {accessToken, refreshToken} } = responseJson;",
+									"    ",
+									"    pm.environment.set('access_token', accessToken);",
+									"    pm.environment.set('refresh_token', refreshToken);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"refreshToken\": \"{{refresh_token}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Issuing New Token",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"refreshToken\": \"{{refresh_token}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/auth",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"auth"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "vary",
+									"value": "origin"
+								},
+								{
+									"key": "access-control-expose-headers",
+									"value": "WWW-Authenticate,Server-Authorization"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-cache"
+								},
+								{
+									"key": "content-length",
+									"value": "312"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 24 Jun 2021 09:13:40 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"message\": \"token berhasil diperbarui\",\n    \"data\": {\n        \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MjQ1MjYwMDB9.gjTntf4nz3OSFzeC7dvcEfqjozvxt9GhneP8yICrHW0\",\n        \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MjQ1MjYwMDB9.NtYGbC1uhb-cBdssPzv1aChtEwurH3yQSnC_QMffJa8\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Deleting Token (Logout)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"refreshToken\": \"{{refresh_token}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Deleting Token / Logout",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"refreshToken\": \"{{refresh_token}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/auth",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"auth"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "vary",
+									"value": "origin"
+								},
+								{
+									"key": "access-control-expose-headers",
+									"value": "WWW-Authenticate,Server-Authorization"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-cache"
+								},
+								{
+									"key": "content-length",
+									"value": "53"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 24 Jun 2021 09:17:49 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"message\": \"delete auth berhasil\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Events",
+			"item": [
+				{
+					"name": "Create Event",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test('response should have property data', function () {",
+									"    const responseJson = pm.response.json();",
+									"",
+									"    pm.expect(responseJson).to.haveOwnProperty('data');",
+									"    pm.expect(responseJson.data).to.haveOwnProperty('eventId');",
+									"    const {data: {eventId} } = responseJson;",
+									"    ",
+									"    pm.environment.set('eventId', eventId);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"judul\": \"Test Judul\",\n    \"deskripsi\": \"Test deskripsi\",\n    \"urlFotoPamflet\": \"Test URL Pamflet 2\",\n    \"urlPendaftaran\": \"Test Url Pendaftaran 2\",\n    \"waktuAcara\": \"2021-06-24T15:46+07:00\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/events",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"events"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create Event",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"judul\": \"Test Judul\",\n    \"deskripsi\": \"Test deskripsi\",\n    \"urlFotoPamflet\": \"Test URL Pamflet 2\",\n    \"urlPendaftaran\": \"Test Url Pendaftaran 2\",\n    \"waktuAcara\": \"2021-06-24T15:46+07:00\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/events",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"events"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "vary",
+									"value": "origin"
+								},
+								{
+									"key": "access-control-expose-headers",
+									"value": "WWW-Authenticate,Server-Authorization"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-cache"
+								},
+								{
+									"key": "content-length",
+									"value": "100"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 24 Jun 2021 09:28:16 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"message\": \"Event berhasil disimpan\",\n    \"data\": {\n        \"eventId\": \"event-6mafAFkxv4JcwAY_\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get All Events",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/events",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"events"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get All Events",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/events",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"events"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "vary",
+									"value": "origin"
+								},
+								{
+									"key": "access-control-expose-headers",
+									"value": "WWW-Authenticate,Server-Authorization"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-cache"
+								},
+								{
+									"key": "content-length",
+									"value": "41"
+								},
+								{
+									"key": "accept-ranges",
+									"value": "bytes"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 24 Jun 2021 08:38:52 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"events\": []\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Event by Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/events/{{eventId}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"events",
+								"{{eventId}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Event by Id",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/events/{{eventId}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"events",
+										"{{eventId}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "vary",
+									"value": "origin"
+								},
+								{
+									"key": "access-control-expose-headers",
+									"value": "WWW-Authenticate,Server-Authorization"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-cache"
+								},
+								{
+									"key": "content-length",
+									"value": "310"
+								},
+								{
+									"key": "accept-ranges",
+									"value": "bytes"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 24 Jun 2021 09:28:25 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"event\": {\n            \"id\": \"event-6mafAFkxv4JcwAY_\",\n            \"id_ormawa\": \"NzzcT_Tx\",\n            \"judul\": \"Test Judul\",\n            \"deskripsi\": \"Test deskripsi\",\n            \"url_foto_pamflet\": \"Test URL Pamflet 2\",\n            \"url_pendaftaran\": \"Test Url Pendaftaran 2\",\n            \"waktu_acara\": \"2021-06-24T08:46:00.000Z\",\n            \"waktu_ditambah\": \"2021-06-24T09:28:08.002Z\"\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Update Event",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"judul\": \"Test Judul Updated\",\n    \"deskripsi\": \"Test deskripsi updated\",\n    \"urlFotoPamflet\": \"Test URL Pamflet 2\",\n    \"urlPendaftaran\": \"Test Url Pendaftaran 2\",\n    \"waktuAcara\": \"2021-06-24T20:46+07:00\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/events/{{eventId}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"events",
+								"{{eventId}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Update Event",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"judul\": \"Test Judul Updated\",\n    \"deskripsi\": \"Test deskripsi updated\",\n    \"urlFotoPamflet\": \"Test URL Pamflet 2\",\n    \"urlPendaftaran\": \"Test Url Pendaftaran 2\",\n    \"waktuAcara\": \"2021-06-24T20:46+07:00\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/events/{{eventId}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"events",
+										"{{eventId}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "vary",
+									"value": "origin"
+								},
+								{
+									"key": "access-control-expose-headers",
+									"value": "WWW-Authenticate,Server-Authorization"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-cache"
+								},
+								{
+									"key": "content-length",
+									"value": "56"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 24 Jun 2021 09:31:34 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"message\": \"event berhasil diupdate\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete Event",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/events/{{eventId}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"events",
+								"{{eventId}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Delete Event",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/events/{{eventId}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"events",
+										"{{eventId}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "vary",
+									"value": "origin"
+								},
+								{
+									"key": "access-control-expose-headers",
+									"value": "WWW-Authenticate,Server-Authorization"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-cache"
+								},
+								{
+									"key": "content-length",
+									"value": "55"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 24 Jun 2021 09:32:21 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"message\": \"event berhasil dihapus\"\n}"
+						}
+					]
+				}
+			]
+		}
+	]
+}
