@@ -15,8 +15,9 @@ class EventHandler {
   async postEvent(request, h) {
     try {
       this.validator.validateEvent(request.payload);
+      const { credentialId } = request.auth.credentials;
 
-      const eventId = await this.service.insertEvent(request.payload);
+      const eventId = await this.service.insertEvent(credentialId, request.payload);
 
       return h.response({
         status: 'success',

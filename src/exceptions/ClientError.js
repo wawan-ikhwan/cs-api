@@ -18,6 +18,13 @@ class UnauthorizedException extends ClientError {
   }
 }
 
+class UnauthorizedTokenException extends UnauthorizedException {
+  constructor(token, message = 'Unauthorized') {
+    super(message, 401);
+    this.token = token;
+  }
+}
+
 class ForbiddenException extends ClientError {
   constructor(message = 'Forbidden') {
     super(message, 403);
@@ -36,4 +43,5 @@ module.exports = {
   ForbiddenException,
   NotFoundException,
   UnauthorizedException,
+  UnauthorizedTokenException,
 };
