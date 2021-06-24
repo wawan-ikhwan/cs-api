@@ -53,10 +53,10 @@ class AuthHandler {
       const { refreshToken } = request.payload;
 
       await this.authService.verifyRefreshToken(refreshToken);
-      const { id } = this.tokenManager.verifyRefreshToken(refreshToken);
+      const { ormawaId } = this.tokenManager.verifyRefreshToken(refreshToken);
 
-      const accessToken = this.tokenManager.generateAccessToken({ id });
-      const newRefreshToken = this.tokenManager.generateRefreshToken({ id });
+      const accessToken = this.tokenManager.generateAccessToken({ ormawaId });
+      const newRefreshToken = this.tokenManager.generateRefreshToken({ ormawaId });
 
       await this.authService.updateAuth(refreshToken, newRefreshToken);
 

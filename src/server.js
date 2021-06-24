@@ -47,7 +47,7 @@ module.exports = (async () => {
     },
     validate: (artifacts) => ({
       isValid: true,
-      credentials: { credentialId: artifacts.decoded.payload.id },
+      credentials: { credentialId: artifacts.decoded.payload.ormawaId },
     }),
   });
 
