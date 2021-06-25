@@ -92,6 +92,44 @@ describe('[Auth Login] Test Endpoint /auth', () => {
   });
 });
 
+describe('[Auth Refresh] Test Endpoint /auth', () => {
+  let response;
+  beforeAll(async () => {
+    response = await server.then((s) => request(s.listener)
+      .put('/auth')
+      .send({
+        refreshToken: environment.refreshToken,
+      })
+      .accept('application/json')
+      .expect((res) => res.body.data));
+  });
+
+  it('should be 200 http code', () => {
+    expect(response.statusCode).toStrictEqual(200);
+  });
+
+  it('should return json body', () => {
+    expect(response.headers['content-type']).toMatch('application/json');
+  });
+
+  it('json body should be same with the expected values', () => {
+    expect(response.body).toMatchObject({
+      status: 'success',
+      message: 'token berhasil diperbarui',
+      data: {
+        accessToken: expect.any(String),
+        refreshToken: expect.any(String),
+      },
+    });
+  });
+
+  afterAll(async () => {
+    // Saving token to env vars
+    environment.accessToken = response.body.data.accessToken;
+    environment.refreshToken = response.body.data.refreshToken;
+  });
+});
+
 describe('[Create Event] Test Endpoint /events', () => {
   const requestBody = {
     judul: 'test27-Seminar Fasilkom',
@@ -210,6 +248,94 @@ describe('[Read an Event] Test Endpoint /events/:eventId', () => {
           waktuDitambah: expect.any(String),
         },
       },
+    });
+  });
+});
+
+describe('[Update an Event] Test Endpoint /events/:eventId', () => {
+  const requestBody = {
+    judul: 'test27-Seminar Nasional Fasilkom',
+    deskripsi: 'test27-Seminar Nasional Fasilkom Updated',
+    urlFotoPamflet: 'https://via.placeholder.com/120x350',
+    urlPendaftaran: 'https://bit.ly/seminarnasionalfasilkom2021',
+    waktuAcara: '2021-06-22T10:00:00.000Z',
+  };
+  let response;
+  beforeAll(async () => {
+    response = await server.then((s) => request(s.listener)
+      .put(`/events/${environment.eventId}`)
+      .set('Authorization', `Bearer ${environment.accessToken}`)
+      .send(requestBody)
+      .accept('application/json')
+      .expect(200));
+  });
+
+  it('should be 200 http code', () => {
+    expect(response.statusCode).toStrictEqual(200);
+  });
+
+  it('should return json body', () => {
+    expect(response.headers['content-type']).toMatch('application/json');
+  });
+
+  it('json body should be same with the expected values', () => {
+    expect(response.body).toMatchObject({
+      status: 'success',
+      message: 'event berhasil diupdate',
+    });
+  });
+});
+
+describe('[Delete an Event] Test Endpoint /events/:eventId', () => {
+  let response;
+  beforeAll(async () => {
+    response = await server.then((s) => request(s.listener)
+      .delete(`/events/${environment.eventId}`)
+      .set('Authorization', `Bearer ${environment.accessToken}`)
+      .accept('application/json')
+      .expect(200));
+  });
+
+  it('should be 200 http code', () => {
+    expect(response.statusCode).toStrictEqual(200);
+  });
+
+  it('should return json body', () => {
+    expect(response.headers['content-type']).toMatch('application/json');
+  });
+
+  it('json body should be same with the expected values', () => {
+    expect(response.body).toMatchObject({
+      status: 'success',
+      message: 'event berhasil dihapus',
+    });
+  });
+});
+
+describe('[Auth Logout] Test Endpoint /auth', () => {
+  let response;
+  beforeAll(async () => {
+    response = await server.then((s) => request(s.listener)
+      .delete('/auth')
+      .send({
+        refreshToken: environment.refreshToken,
+      })
+      .accept('application/json')
+      .expect(200));
+  });
+
+  it('should be 200 http code', () => {
+    expect(response.statusCode).toStrictEqual(200);
+  });
+
+  it('should return json body', () => {
+    expect(response.headers['content-type']).toMatch('application/json');
+  });
+
+  it('json body should be same with the expected values', () => {
+    expect(response.body).toMatchObject({
+      status: 'success',
+      message: 'delete auth berhasil',
     });
   });
 });
