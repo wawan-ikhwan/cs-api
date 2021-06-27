@@ -17,13 +17,18 @@ const eventValidator = require('./validator/event');
 
 // auth
 const authPlugin = require('./api/auth');
-const authValidator = require('./validator/auth');
 const AuthService = require('./services/postgres/AuthService');
+const authValidator = require('./validator/auth');
+
+// file
+const filePlugin = require('./api/file');
+const FileService = require('./services/firebase-admin/FileService');
 
 module.exports = (async () => {
   const eventService = new EventService();
   const ormawaService = new OrmawaService();
   const authService = new AuthService();
+  const fileService = new FileService();
 
   const server = hapi.server({
     host: process.env.HOST,
@@ -73,6 +78,13 @@ module.exports = (async () => {
         ormawaService,
         tokenManager,
         validator: authValidator,
+      },
+    },
+    {
+      plugin: filePlugin,
+      options: {
+        service: fileService,
+        validator: null,
       },
     },
   ]);
