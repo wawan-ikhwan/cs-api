@@ -20,10 +20,16 @@ const authPlugin = require('./api/auth');
 const authValidator = require('./validator/auth');
 const AuthService = require('./services/postgres/AuthService');
 
+// uploader
+const uploaderPlugin = require('./api/uploader');
+// const uploaderValidator = require('./validator/uploader');
+// const UploaderService = require('./services/postgres/UploaderService');
+
 module.exports = (async () => {
   const eventService = new EventService();
   const ormawaService = new OrmawaService();
   const authService = new AuthService();
+  // const uploaderService = new UploaderService();
 
   const server = hapi.server({
     host: process.env.HOST,
@@ -73,6 +79,13 @@ module.exports = (async () => {
         ormawaService,
         tokenManager,
         validator: authValidator,
+      },
+    },
+    {
+      plugin: uploaderPlugin,
+      options: {
+        service: null,
+        validator: null,
       },
     },
   ]);
