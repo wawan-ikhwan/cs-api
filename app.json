@@ -24,5 +24,8 @@
       "description": "A secret key for verifying the integrity of signed Owner Token.",
       "generator": "secret"
     }
+  },
+  "scripts": {
+    "postdeploy": "npm run migrate up"
   }
 }
