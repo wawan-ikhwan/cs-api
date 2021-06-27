@@ -1,7 +1,7 @@
 const { Pool } = require('pg');
 const { nanoid } = require('nanoid');
-const { InternalServerErrorException } = require('../../exceptions/ServerError');
-const { NotFoundException } = require('../../exceptions/ClientError');
+const { NotFoundException, BadRequestException, ForbiddenException } = require('../../exceptions/ClientError');
+const { eventModel } = require('../../utils/DBtoModel');
 
 class EventService {
   constructor() {
@@ -34,10 +34,25 @@ class EventService {
     });
 
     if (!result.rows[0].id) {
-      throw new InternalServerErrorException();
+      throw new BadRequestException('event gagal ditambah');
     }
 
     return result.rows[0].id;
+  }
+
+  async verifyEventOwner(credentialId, eventId) {
+    const result = await this.pool.query({
+      text: 'SELECT id_ormawa FROM events WHERE id = $1',
+      values: [eventId],
+    });
+
+    if (!result.rowCount) {
+      throw new NotFoundException('event tidak ditemukan');
+    }
+
+    if (result.rows[0].id_ormawa !== credentialId) {
+      throw new ForbiddenException('anda tidak dapat mengubah event ini');
+    }
   }
 
   async getEvents(items, page) {
@@ -46,7 +61,7 @@ class EventService {
       values: [items, page],
     });
 
-    return result.rows;
+    return result.rows.map(eventModel);
   }
 
   async getEventById(id) {
@@ -56,10 +71,10 @@ class EventService {
     });
 
     if (!result.rowCount) {
-      throw new NotFoundException();
+      throw new NotFoundException('event tidak ditemukan');
     }
 
-    return result.rows[0];
+    return result.rows.map(eventModel)[0];
   }
 
   async updateEventById(id, {
@@ -77,7 +92,7 @@ class EventService {
     });
 
     if (!result.rowCount) {
-      throw new NotFoundException();
+      throw new NotFoundException('event tidak ditemukan');
     }
   }
 
@@ -88,7 +103,7 @@ class EventService {
     });
 
     if (!result.rowCount) {
-      throw new NotFoundException();
+      throw new NotFoundException('event tidak ditemukan');
     }
   }
 }

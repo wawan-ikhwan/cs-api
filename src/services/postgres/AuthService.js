@@ -19,7 +19,7 @@ class AuthService {
     });
 
     if (!result.rowCount) {
-      throw new InternalServerErrorException();
+      throw new InternalServerErrorException('gagal menambahkan autentikasi');
     }
   }
 
@@ -30,7 +30,7 @@ class AuthService {
     });
 
     if (!result.rowCount) {
-      throw new InternalServerErrorException();
+      throw new InternalServerErrorException('gagal memperbarui autentikasi');
     }
   }
 
@@ -41,7 +41,7 @@ class AuthService {
     });
 
     if (!result.rowCount) {
-      throw new BadRequestException();
+      throw new BadRequestException('refresh token tidak valid');
     }
   }
 
@@ -52,7 +52,7 @@ class AuthService {
     });
 
     if (!result.rowCount) {
-      throw new BadRequestException();
+      throw new BadRequestException('tidak ada autentikasi yang dihapus');
     }
   }
 }
