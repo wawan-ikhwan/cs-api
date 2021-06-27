@@ -26,7 +26,7 @@ module.exports = (async () => {
   const authService = new AuthService();
 
   const server = hapi.server({
-    host: process.env.HOST,
+    host: process.env.HOST || '0.0.0.0',
     port: process.env.PORT,
     routes: {
       cors: {

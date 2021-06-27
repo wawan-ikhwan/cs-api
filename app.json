@@ -23,7 +23,6 @@
     "OWNER_TOKEN_KEY": {
       "description": "A secret key for verifying the integrity of signed Owner Token.",
       "generator": "secret"
-    },
-    "HOST": "0.0.0.0"
+    }
   }
 }
