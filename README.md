@@ -1,5 +1,7 @@
 # cs-api
 
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/DSC-UNSRI/cs-api/tree/deploy/heroku)
+
 ## Membuat Sistem Informasi InUnsri (Informasi Unsri)
 
 Deskripsi: Sistem Informasi yang membuat Mahasiswa Unsri mengetahui informasi terupdate.  

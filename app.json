@@ -1,0 +1,29 @@
+{
+  "name": "Informasi Unsri REST API",
+  "description": "REST API untuk aplikasi Informasi Unsri",
+  "repository": "https://github.com/DSC-UNSRI/cs-api",
+  "logo": "https://avatars.githubusercontent.com/u/74489745",
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ],
+  "addons": [
+    "heroku-postgresql:hobby-dev"
+  ],
+  "env": {
+    "ACCESS_TOKEN_KEY": {
+      "description": "A secret key for verifying the integrity of signed Access Token.",
+      "generator": "secret"
+    },
+    "REFRESH_TOKEN_KEY": {
+      "description": "A secret key for verifying the integrity of signed Refresh Token.",
+      "generator": "secret"
+    },
+    "OWNER_TOKEN_KEY": {
+      "description": "A secret key for verifying the integrity of signed Owner Token.",
+      "generator": "secret"
+    },
+    "HOST": "0.0.0.0"
+  }
+}
