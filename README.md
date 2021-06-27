@@ -26,10 +26,10 @@ npm run test
 ```
 
 ## API Docs
-[Click Here](https://documenter.getpostman.com/view/13546351/TzecDkHM)
+[Click Here](https://documenter.getpostman.com/view/13016039/Tzef92vF)
 
 ## Accessing API Collection
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/13546351-1bc247d8-0f66-44f7-9674-e652fcb8572e?action=collection%2Ffork&collection-url=entityId%3D13546351-1bc247d8-0f66-44f7-9674-e652fcb8572e%26entityType%3Dcollection%26workspaceId%3Df2bc5b24-9df1-4bc5-9677-e0bb5b0eb745)
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/fb3ccdf00eb81199cb42#?env%5BDSC%20CS-API%5D=W3sia2V5IjoiYmFzZV91cmwiLCJ2YWx1ZSI6ImxvY2FsaG9zdDo1MDAwIiwiZW5hYmxlZCI6dHJ1ZX0seyJrZXkiOiJvcm1hd2FJZCIsInZhbHVlIjoiSURfT1JNQVdBIiwiZW5hYmxlZCI6dHJ1ZX0seyJrZXkiOiJldmVudElkIiwidmFsdWUiOiJJRF9FVkVOVCIsImVuYWJsZWQiOnRydWV9LHsia2V5IjoiYWNjZXNzX3Rva2VuIiwidmFsdWUiOiJBQ0NFU1NfVE9LRU4iLCJlbmFibGVkIjp0cnVlfSx7ImtleSI6InJlZnJlc2hfdG9rZW4iLCJ2YWx1ZSI6IlJFRlJFU0hfVE9LRU4gIiwiZW5hYmxlZCI6dHJ1ZX0seyJrZXkiOiJvd25lcl90b2tlbiIsInZhbHVlIjoiT1dORVJfVE9LRU4iLCJlbmFibGVkIjp0cnVlfV0=)
 
 ## Manually Importing Collection
 1. Download .json postman collection in dev > DSC.postman_collection.json
