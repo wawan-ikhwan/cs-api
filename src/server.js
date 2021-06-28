@@ -20,7 +20,11 @@ const authPlugin = require('./api/auth');
 const authValidator = require('./validator/auth');
 const AuthService = require('./services/postgres/AuthService');
 
+// cache
+const CacheService = require('./services/redis/CacheService');
+
 module.exports = (async () => {
+  const cacheService = new CacheService();
   const eventService = new EventService();
   const ormawaService = new OrmawaService();
   const authService = new AuthService();
@@ -35,7 +39,25 @@ module.exports = (async () => {
     },
   });
 
+  server.events.on('stop', () => {
+    cacheService.quit();
+  });
+
   await server.register(Jwt);
+
+  server.auth.strategy('ownerAuth', 'jwt', {
+    keys: process.env.OWNER_TOKEN_KEY,
+    verify: {
+      aud: false,
+      iss: false,
+      sub: false,
+      maxAgeSec: 60 * 10,
+    },
+    validate: async (artifacts) => ({
+      isValid: !!(await cacheService.getOneTime(artifacts.decoded.payload.id)),
+      credentials: { oneTimeId: artifacts.decoded.payload.id },
+    }),
+  });
 
   server.auth.strategy('ormawaAuth', 'jwt', {
     keys: process.env.ACCESS_TOKEN_KEY,
