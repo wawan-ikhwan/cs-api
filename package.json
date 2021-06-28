@@ -10,7 +10,8 @@
     "test:coverage": "jest --coverage",
     "eslint": "eslint --init",
     "migrate-dev": "node-pg-migrate --no-reject-unauthorized",
-    "migrate": "node ./dev/migrate.js"
+    "migrate": "node ./dev/migrate.js",
+    "auth-owner": "node ./dev/generateownerauth.js"
   },
   "repository": {
     "type": "git",
@@ -32,7 +33,8 @@
     "nanoid": "^3.1.23",
     "node-pg-migrate": "^5.9.0",
     "nodemon": "^2.0.7",
-    "pg": "^8.6.0"
+    "pg": "^8.6.0",
+    "redis": "^3.1.2"
   },
   "devDependencies": {
     "eslint": "^7.28.0",
