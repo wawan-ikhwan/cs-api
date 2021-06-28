@@ -39,6 +39,10 @@ module.exports = (async () => {
     },
   });
 
+  server.events.on('stop', () => {
+    cacheService.quit();
+  });
+
   await server.register(Jwt);
 
   server.auth.strategy('ownerAuth', 'jwt', {
@@ -47,7 +51,7 @@ module.exports = (async () => {
       aud: false,
       iss: false,
       sub: false,
-      maxAgeSec: 40,
+      maxAgeSec: 60 * 10,
     },
     validate: async (artifacts) => ({
       isValid: !!(await cacheService.getOneTime(artifacts.decoded.payload.id)),

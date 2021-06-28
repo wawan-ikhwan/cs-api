@@ -7,12 +7,12 @@ const CacheService = require('../src/services/redis/CacheService');
 module.exports = (async () => {
   const cacheService = new CacheService();
 
-  const id = nanoid(16);
+  const id = `onetime-${nanoid(4)}`;
   const generated = token.generate({ id }, process.env.OWNER_TOKEN_KEY);
-  await cacheService.set(id, '1', 60 * 10);
+  await cacheService.set(id, '1', (60 * 10) + 30);
 
   console.log(generated);
 
-  cacheService.client.quit();
+  cacheService.quit();
   return generated;
 })();

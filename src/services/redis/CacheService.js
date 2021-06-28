@@ -13,6 +13,14 @@ class CacheService {
     });
   }
 
+  quit() {
+    return this.client.quit((err) => {
+      if (err) {
+        console.log(err);
+      }
+    });
+  }
+
   set(key, value, expiration = 3600) {
     return new Promise((resolve, reject) => {
       this.client.set(key, value, 'EX', expiration, (err, ok) => {
