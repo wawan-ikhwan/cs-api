@@ -55,11 +55,21 @@ class EventService {
     }
   }
 
-  async getEvents(items, page) {
-    const result = await this.pool.query({
-      text: 'SELECT * FROM events LIMIT $1 OFFSET ($2 - 1) * $1',
-      values: [items, page],
-    });
+  async getEvents(items, page, search) {
+    const query = search
+      ? {
+        text: `SELECT * 
+      FROM events 
+      WHERE LOWER(judul) LIKE LOWER($3) 
+      LIMIT $1 OFFSET ($2 - 1) * $1`,
+        values: [items, page, `%${search}%`],
+      }
+      : {
+        text: 'SELECT * FROM events LIMIT $1 OFFSET ($2 - 1) * $1',
+        values: [items, page],
+      };
+
+    const result = await this.pool.query(query);
 
     return result.rows.map(eventModel);
   }

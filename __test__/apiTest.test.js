@@ -1,8 +1,9 @@
 const request = require('supertest');
 const server = require('../src/server');
+const ownerToken = require('../dev/generateownerauth');
 
 const environment = {
-  email: 'test27-auth@gmail.com',
+  email: `test${+new Date()}-auth@gmail.com`,
   password: 'secretpasswordhmm',
   nama: '{nama tester}',
   urlFotoOrmawa: '{foto ormawa test}',
@@ -21,8 +22,10 @@ describe('[Create Ormawa] Test Endpoint /ormawa', () => {
   };
   let response;
   beforeAll(async () => {
+    const token = await ownerToken;
     response = await server.then((s) => request(s.listener)
       .post('/ormawa')
+      .set('Authorization', `Bearer ${token}`)
       .send(requestBody)
       .accept('application/json')
       .expect((res) => res.body.data));
@@ -283,6 +286,50 @@ describe('[Update an Event] Test Endpoint /events/:eventId', () => {
       status: 'success',
       message: 'event berhasil diupdate',
     });
+  });
+});
+
+describe('[Search and Read All Events] Test Endpoint /events', () => {
+  let response;
+  beforeAll(async () => {
+    response = await server.then((s) => request(s.listener)
+      .get('/events?search=nasion')
+      .accept('application/json')
+      .expect((res) => res.body.data));
+  });
+
+  it('should be 200 http code', () => {
+    expect(response.statusCode).toStrictEqual(200);
+  });
+
+  it('should return json body', () => {
+    expect(response.headers['content-type']).toMatch('application/json');
+  });
+
+  it('json body should be same with the expected values', () => {
+    expect(response.body).toMatchObject({
+      status: 'success',
+      data: {
+        events: expect.any(Array),
+      },
+    });
+  });
+
+  it('json body.data.events should be array of objects', () => {
+    expect(response.body.data.events).toStrictEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          id: expect.any(String),
+          idOrmawa: expect.any(String),
+          judul: 'test27-Seminar Nasional Fasilkom',
+          deskripsi: expect.any(String),
+          urlFotoPamflet: expect.any(String),
+          urlPendaftaran: expect.any(String),
+          waktuAcara: expect.any(String),
+          waktuDitambah: expect.any(String),
+        }),
+      ]),
+    );
   });
 });
 

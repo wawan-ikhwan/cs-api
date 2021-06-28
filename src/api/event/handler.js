@@ -43,9 +43,9 @@ class EventHandler {
 
   async getAllEvent(request, h) {
     try {
-      const { items = 10, page = 1 } = request.query;
+      const { items = 10, page = 1, search } = request.query;
 
-      const events = await this.service.getEvents(items, page);
+      const events = await this.service.getEvents(items, page, search);
 
       return {
         status: 'success',
