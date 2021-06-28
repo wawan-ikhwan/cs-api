@@ -3,6 +3,9 @@ module.exports = (handler) => [
     method: 'POST',
     path: '/ormawa',
     handler: handler.postOrmawa, // daftar ormawa
+    options: {
+      auth: 'ownerAuth',
+    },
   },
   {
     method: 'GET',

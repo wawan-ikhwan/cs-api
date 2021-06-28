@@ -1,8 +1,9 @@
 const request = require('supertest');
 const server = require('../src/server');
+const ownerToken = require('../dev/generateownerauth');
 
 const environment = {
-  email: 'test27-auth@gmail.com',
+  email: `test${+new Date()}-auth@gmail.com`,
   password: 'secretpasswordhmm',
   nama: '{nama tester}',
   urlFotoOrmawa: '{foto ormawa test}',
@@ -21,8 +22,10 @@ describe('[Create Ormawa] Test Endpoint /ormawa', () => {
   };
   let response;
   beforeAll(async () => {
+    const token = await ownerToken;
     response = await server.then((s) => request(s.listener)
       .post('/ormawa')
+      .set('Authorization', `Bearer ${token}`)
       .send(requestBody)
       .accept('application/json')
       .expect((res) => res.body.data));
