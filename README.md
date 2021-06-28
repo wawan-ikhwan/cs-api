@@ -15,6 +15,8 @@ Resource Backend:
 -   Bahasa Server: Nodejs
 
 Cara memulai :
+-   ubah nama file `.example.env` menjadi `.env` dan ubah isi variabel environtment
+
 ```
 npm install
 npm start
@@ -23,6 +25,11 @@ npm start
 Menjalankan test : 
 ```
 npm run test
+```
+
+Mengambil Token Owner : 
+```
+npm run auth-owner
 ```
 
 ## API Docs
