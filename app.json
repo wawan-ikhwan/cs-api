@@ -9,7 +9,8 @@
     }
   ],
   "addons": [
-    "heroku-postgresql:hobby-dev"
+    "heroku-postgresql:hobby-dev",
+    "heroku-redis:hobby-dev"
   ],
   "env": {
     "ACCESS_TOKEN_KEY": {
