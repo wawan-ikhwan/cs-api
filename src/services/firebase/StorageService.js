@@ -5,8 +5,11 @@ class StorageService {
    */
   constructor(app) {
     this.app = app;
-    this.bucketName = 'file-68cd6.appspot.com';
+
+    const projectId = JSON.parse(process.env.FIREBASE_ADMIN_SDK_KEY).project_id;
+    this.bucketName = `${projectId}.appspot.com`;
     this.bucket = app.storage().bucket(this.bucketName);
+
     this.assertBucket();
   }
 
