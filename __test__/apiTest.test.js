@@ -1,4 +1,5 @@
 const request = require('supertest');
+const path = require('path');
 const server = require('../src/server');
 const ownerToken = require('../dev/generateownerauth');
 
@@ -11,6 +12,7 @@ const environment = {
   accessToken: 'undefined',
   refreshToken: 'undefined',
   eventId: 'undefined',
+  urlFoto: 'undefined',
 };
 
 describe('[Create Ormawa] Test Endpoint /ormawa', () => {
@@ -133,20 +135,54 @@ describe('[Auth Refresh] Test Endpoint /auth', () => {
   });
 });
 
+describe('[Upload Event Pamflet Image] Test Endpoint /upload/images', () => {
+  let response;
+  beforeAll(async () => {
+    response = await server.then((s) => request(s.listener)
+      .post('/upload/images')
+      .attach('data', path.resolve(__dirname, './testimg.jpg'))
+      .set('Authorization', `Bearer ${environment.accessToken}`)
+      .accept('application/json')
+      .expect((res) => res.body.data));
+  });
+
+  it('should be 201 http code', () => {
+    expect(response.statusCode).toStrictEqual(201);
+  });
+
+  it('should return json body', () => {
+    expect(response.headers['content-type']).toMatch('application/json');
+  });
+
+  it('json body should be same with the expected values', () => {
+    expect(response.body).toMatchObject({
+      status: 'success',
+      message: expect.any(String),
+      data: {
+        urlFoto: expect.any(String),
+      },
+    });
+  });
+
+  afterAll(async () => {
+    // Saving eventId to env vars
+    environment.urlFoto = response.body.data.urlFoto;
+  });
+});
+
 describe('[Create Event] Test Endpoint /events', () => {
-  const requestBody = {
-    judul: 'test27-Seminar Fasilkom',
-    deskripsi: 'test27-Seminar Fasilkom',
-    urlFotoPamflet: 'https://via.placeholder.com/120x350',
-    urlPendaftaran: 'https://bit.ly/seminarfasilkom2021',
-    waktuAcara: '2021-06-19T09:56:25.087Z',
-  };
   let response;
   beforeAll(async () => {
     response = await server.then((s) => request(s.listener)
       .post('/events')
       .set('Authorization', `Bearer ${environment.accessToken}`)
-      .send(requestBody)
+      .send({
+        judul: 'test27-Seminar Fasilkom',
+        deskripsi: 'test27-Seminar Fasilkom',
+        urlFotoPamflet: environment.urlFoto,
+        urlPendaftaran: 'https://bit.ly/seminarfasilkom2021',
+        waktuAcara: '2021-06-19T09:56:25.087Z',
+      })
       .accept('application/json')
       .expect((res) => res.body.data));
   });
