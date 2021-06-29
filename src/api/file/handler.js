@@ -6,6 +6,7 @@ class FileHandler {
     this.validator = validator;
 
     this.postFile = this.postFile.bind(this);
+    this.getPageIndex = this.getPageIndex.bind(this);
     this.getAllFiles = this.getAllFiles.bind(this);
     this.getFileById = this.getFileById.bind(this);
   }
@@ -36,6 +37,19 @@ class FileHandler {
     }
   }
 
+  async getPageIndex(request, h) {
+    const bucket = await this.service.getPageIndex();
+    console.log(request);
+    console.log(h);
+    return {
+      status: 'success',
+      data: {
+        message: 'Ini adalah page index',
+        bucket,
+      },
+    };
+  }
+
   async getAllFiles(request, h) {
     try {
       const files = await this.service.getAllFiles();
@@ -62,10 +76,14 @@ class FileHandler {
 
   async getFileById(request, h) {
     try {
-      const { id } = request.params;
+      let { id } = request.params;
+      console.log(id);
+      if (id == null) {
+        return 'oke';
+      }
+      id = id.replace('/', '%2F');
 
       const file = await this.service.getFileById(id);
-      console.log(file);
 
       return h.redirect(file);
     } catch (error) {
@@ -78,7 +96,7 @@ class FileHandler {
 
       return h.response({
         status: 'fail',
-        message: 'Server error',
+        message: 'server error',
       }).code(500);
     }
   }
