@@ -24,6 +24,10 @@
     "OWNER_TOKEN_KEY": {
       "description": "A secret key for verifying the integrity of signed Owner Token.",
       "generator": "secret"
+    },
+    "FIREBASE_ADMIN_SDK_KEY": {
+      "description": "A secret key for verifying the integrity of Firebase Admin SDK. can be found in, Project Settings > Service Accounts > Generate New Private Key > Paste the file content here",
+      "required": true
     }
   },
   "scripts": {
