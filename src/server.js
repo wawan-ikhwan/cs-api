@@ -23,7 +23,17 @@ const AuthService = require('./services/postgres/AuthService');
 // cache
 const CacheService = require('./services/redis/CacheService');
 
+// upload
+const uploadPlugin = require('./api/upload');
+const uploadValidator = require('./validator/upload');
+
+// firebase
+const AdminService = require('./services/firebase/AdminService');
+const StorageService = require('./services/firebase/StorageService');
+
 module.exports = (async () => {
+  const adminService = new AdminService();
+  const storageService = new StorageService(adminService.app);
   const cacheService = new CacheService();
   const eventService = new EventService();
   const ormawaService = new OrmawaService();
@@ -95,6 +105,13 @@ module.exports = (async () => {
         ormawaService,
         tokenManager,
         validator: authValidator,
+      },
+    },
+    {
+      plugin: uploadPlugin,
+      options: {
+        service: storageService,
+        validator: uploadValidator,
       },
     },
   ]);
